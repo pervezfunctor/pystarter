@@ -1,0 +1,13 @@
+{
+  "python.testing.pytestArgs": ["tests"],
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": false,
+  "python.linting.mypyCategorySeverity.error": "Warning",
+  "python.linting.enabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+}
