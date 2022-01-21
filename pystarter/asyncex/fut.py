@@ -1,4 +1,5 @@
 import asyncio
+from asyncio import Future
 
 
 async def foo(fut: asyncio.Future[str]):
@@ -7,12 +8,11 @@ async def foo(fut: asyncio.Future[str]):
 
 
 async def main():
-    fut = asyncio.Future[str]()
+    fut = Future[str]()
     asyncio.create_task(foo(fut))
     result = await fut
     print(result)
 
 
-loop = asyncio.new_event_loop()
-
-loop.run_until_complete(main())
+if __name__ == "__main__":
+    asyncio.run(main())

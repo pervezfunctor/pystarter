@@ -1,6 +1,4 @@
 from typing import Iterable, Generator
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import asyncio
 
 
 def producer() -> Iterable[int]:
