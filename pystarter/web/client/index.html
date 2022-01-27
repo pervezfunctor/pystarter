@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WebSocket demo</title>
+    <style>
+      body {
+        font-family: "Courier New", sans-serif;
+        text-align: center;
+      }
+      .buttons {
+        font-size: 4em;
+        display: flex;
+        justify-content: center;
+      }
+      .button,
+      .value {
+        line-height: 1;
+        padding: 2rem;
+        margin: 2rem;
+        border: medium solid;
+        min-height: 1em;
+        min-width: 1em;
+      }
+      .button {
+        cursor: pointer;
+        user-select: none;
+      }
+      .minus {
+        color: red;
+      }
+      .plus {
+        color: green;
+      }
+      .value {
+        min-width: 2em;
+      }
+      .state {
+        font-size: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="buttons">
+      <div class="minus button">-</div>
+      <div class="value">?</div>
+      <div class="plus button">+</div>
+    </div>
+    <div class="state"><span class="users">?</span> online</div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const websocket = new WebSocket("ws://localhost:6789/");
+
+        document.querySelector(".minus").addEventListener("click", () => {
+          websocket.send(JSON.stringify({ action: "minus" }));
+        });
+
+        document.querySelector(".plus").addEventListener("click", () => {
+          websocket.send(JSON.stringify({ action: "plus" }));
+        });
+
+        websocket.onmessage = ({ data }) => {
+          const event = JSON.parse(data);
+          switch (event.type) {
+            case "value":
+              document.querySelector(".value").textContent = event.value;
+              break;
+            case "users":
+              const users = `${event.count} user${event.count == 1 ? "" : "s"}`;
+              document.querySelector(".users").textContent = users;
+              break;
+            default:
+              console.error("unsupported event", event);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
